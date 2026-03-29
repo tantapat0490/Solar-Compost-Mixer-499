@@ -1,6 +1,6 @@
 # การตั้งค่าระบบ 
 network:
-  base_url: "http://192.168.4.1"
+  base_url: "http://192.168.4.1"  # ตั้ง IP ให้ตรงกับตัวบอร์ด
 
 storage:
   file_path: "data_log.csv"
