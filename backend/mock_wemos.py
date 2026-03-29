@@ -6,13 +6,13 @@ import itertools
 
 app = Flask(__name__)
 
-# 🛑 ปิดการปริ้นท์ Log รกๆ ของ Flask (Werkzeug) ให้เหลือแต่ Error
+# ปิดการปริ้นท์ Log ของ Flask ให้เหลือแต่ Error
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 motor_status = "OFF"
 
-# 🌀 ตัวหมุน Spinner
+# ตัวหมุน Spinner
 spinner = itertools.cycle(['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'])
 
 @app.route('/api/status', methods=['GET'])
@@ -31,7 +31,7 @@ def get_status():
     else:
         curr = 0.0
 
-    # ✨ ทำอนิเมชั่นสถานะบรรทัดเดียวแบบคลีนๆ
+    # ทำอนิเมชั่นสถานะบรรทัดเดียว
     spin = next(spinner)
     color = "\033[92m" if motor_status == "ON" else "\033[90m" # สีเขียวถ้า ON, สีเทาถ้า OFF
     reset = "\033[0m"
@@ -64,14 +64,14 @@ def turn_off():
     return jsonify({"status": "OFF", "relay": "OFF"})
 
 if __name__ == '__main__':
-    print("🚀 เริ่มจำลอง Wemos D1 R1 ที่พอร์ต 8080... (ซ่อน Log รกๆ แล้ว)")
+    print("เริ่มจำลอง Wemos D1 R1 ที่พอร์ต 8080... (ซ่อน Log รกๆ แล้ว)")
     # หา IP เครื่องตัวเองในวง LAN
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
     
-    print(f"🚀 Mock Server กำลังทำงานที่:")
-    print(f"🔗 Local:   http://localhost:8080")
-    print(f"🌐 Network: http://{local_ip}:8080") # อันนี้แหละคือ IP ที่เครื่องอื่นต้องใช้เรียก
+    print(f"Mock Server กำลังทำงานที่:")
+    print(f"Local:   http://localhost:8080")
+    print(f"Network: http://{local_ip}:8080")
     print("---------------------------------------")
     
     app.run(host='0.0.0.0', port=8080)
