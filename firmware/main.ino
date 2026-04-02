@@ -254,7 +254,7 @@ async function fetchStatus() {
     let res = await fetch('/api/status');
     let data = await res.json();
     document.getElementById('relay').innerText = data.relay;
-    document.getElementById('current').innerText = data.current.toFixed(2);
+    document.getElementById('currentA').innerText = data.current.toFixed(2);
     document.getElementById('mode').innerText  = data.mode;
     document.getElementById('ip').innerText    = data.ip;
 
