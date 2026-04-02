@@ -11,6 +11,6 @@ app_settings:
   sun_end: "18:00"
 
 energy_budget:
-  max_run_time: 300       # รันสูงสุดไม่เกิน 5 นาที (ถ้ากินถึง 20A)
+  max_run_time: 300       # รันสูงสุดไม่เกิน 5 นาที
   base_cooldown: 1500     # พักพื้นฐาน 25 นาที
   critical_current: 20.0  # สั่งตัดที่ 20
