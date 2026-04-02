@@ -24,7 +24,7 @@ unsigned long lastProtectCheck = 0;
 // แรงดันอ้างอิง ADC บนบอร์ด
 const float ACS_VREF  = 5;          // แรงดันอ้างอิง          
 const float ACS_SENS  = 0.066;      // ใส่ค่าตามรุ่น
-float acsOffsetAdc    = 512.0;      // ค่าเริ่มคร่าวๆ
+float acsOffsetAdc    = 512.0;      // ค่าเริ่มคร่าวๆ 1023 / 2 = 511.5
 
 // ======================== Wi-Fi ========================
 // โหมด STA ให้ต่อ wifi ในวงเดียวกัน (เผื่ออนาคตยังไม่ได้กำหนด)
@@ -44,53 +44,50 @@ String relayState() {
   return (digitalRead(RELAY_PIN) == LOW) ? "ON" : "OFF";  // LOW = ON (Active LOW)
 }
 
-// คาลิเบรตค่า offset ของ ACS712 ตอนกระแส = 0A
+// --- ฟังก์ชันหาจุดศูนย์ (Set Zero) ---
 void calibrateAcsOffset() {
-  // รันตอนเปิดเครื่อง อ่านค่า A0 รัวๆ 500 ครั้ง หาค่าเฉลี่ยตอนที่ยังไม่จ่ายไฟมอเตอร์
-  // เพื่อหา จุดศูนย์ ที่แท้จริง ตัด Error ของ Hardware
-  const int N = 500;
-  long sum    = 0;
+  const int N = 500;          // กำหนดให้อ่านค่า 500 รอบเพื่อหาค่าเฉลี่ยที่นิ่งที่สุด
+  long sum    = 0;            // ตัวแปรสำหรับรวมค่า ADC
   Serial.println("[ACS] Calibrating offset, กรุณาอย่าให้มีกระแสโหลด...");
 
   for (int i = 0; i < N; i++) {
-    sum += analogRead(ACS_PIN);
+    sum += analogRead(ACS_PIN);         // สะสมค่าแรงดัน
     delay(2);
   }
 
-  acsOffsetAdc = (float)sum / (float)N;
+  acsOffsetAdc = (float)sum / (float)N; // หาค่าเฉลี่ยเพื่อใช้เป็นค่าอ้างอิงศูนย์
   Serial.print("[ACS] Offset ADC = ");
   Serial.println(acsOffsetAdc);
 }
 
-// อ่านกระแสจาก ACS712 แบบเบื้องต้น
+// --- อ่านกระแสจาก ACS712 แบบเบื้องต้น --- 
 float readCurrentA() {
-  // อ่านค่า Analog 100 ครั้งหาค่าเฉลี่ย เพื่อลด Noise
-  const int N = 100;
+  const int N = 100;               // อ่านค่า Analog 100 ครั้งหาค่าเฉลี่ย เพื่อลด Noise
   long sum    = 0;
 
   for (int i = 0; i < N; i++) {
-    sum += analogRead(ACS_PIN);
+    sum += analogRead(ACS_PIN);   // อ่านค่า Analog-to-Digital ล่าสุด
     delay(1);
   }
 
-  float adcAvg = (float)sum / (float)N;
-  float diff   = adcAvg - acsOffsetAdc;                // ต่างจากศูนย์
-  float vDiff  = diff * (ACS_VREF / 1023);             // แปลงเป็นโวลต์
-  float amps   = vDiff / ACS_SENS;                     // แปลงเป็น A
+  float adcAvg = (float)sum / (float)N;                // หาค่าเฉลี่ย Analog-to-Digital ค่าที่เราอ่านได้จริงๆ
+  float diff   = adcAvg - acsOffsetAdc;                // หาค่าความต่างจากจุดศูนย์
+  float vDiff  = diff * (ACS_VREF / 1023);             // แปลงจากเลข Analog-to-Digital (0-1023) เป็นหน่วยแรงดัน Volt
+  float amps   = vDiff / ACS_SENS;                     // แปลงหน่วยแรงดันเป็นกระแสแอมป์ (ตาม Sensitivity ของเซนเซอร์)
 
-  // ✅ debug ดูใน Serial
+  // debug ดูใน Serial
   Serial.print("[ACS] adcAvg="); Serial.print(adcAvg);
   Serial.print("  offset=");    Serial.print(acsOffsetAdc);
   Serial.print("  diff=");      Serial.print(diff);
   Serial.print("  amps=");      Serial.println(amps);
 
-  // ✅ ถ้าค่าน้อยมาก ให้ถือว่า = 0 (ตัด noise)
-  if (amps < 0.2 && amps > -0.2) {
-    amps = 0.0;
+  // ถ้าค่าน้อยมาก ให้ถือว่า = 0 (ตัด noise)
+  if (amps < 0.2 && amps > -0.2) {                    // ตัด Noise เล็กๆ ทิ้งเพื่อให้หน้าจอนิ่งที่ 0.00A
+    amps = 0.0;                                     
   }
 
   // ไม่ต้องแปลงให้เป็นบวกเสมอ จะได้เห็นทิศทางด้วย
-  return amps;
+  return amps;                                        // ส่งค่ากระแสที่คำนวณได้กลับไปใช้งานต่อ
 }
 
 // อ่าน DHT11 แล้วเก็บค่าไว้ใน lastTemp / lastHumi
@@ -110,27 +107,34 @@ void readDhtSafe() {
 
 void connectWiFiSmart() {
   Serial.println("\n[WiFi] ลองเชื่อมต่อโหมด STA (Hotspot มือถือ)...");
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(STA_SSID, STA_PASS);
+  WiFi.mode(WIFI_STA);                     // สั่งให้ชิป WiFi ทำหน้าที่เป็น Station (STA) ผู้รับสัญญาณ
+  WiFi.begin(STA_SSID, STA_PASS);          // ส่งตัวแปรชื่อ WiFi กับรหัสผ่านที่กำหนดไว้ไปให้ระบบ
 
-  unsigned long start = millis();
-  unsigned long timeout_ms = 8000;
+  unsigned long start      = millis();     // สร้างตัวแปรเก็บ เวลา (ms) ปัจจุบัน นับตั้งแต่เริ่มเปิดบอร์ด
+  unsigned long timeout_ms = 8000;         // ตั้งค่า Timeout ไว้ที่ 8,000 ms หรือ 8 s
 
+  // สั่งให้บอร์ด วนลูปอยู่ตรงนี้ ตราบเท่าที่ ยังต่อ WiFi ไม่ติด และ เวลาก็ยังไม่เกิน 8 วินาทีที่เราตั้งไว้
   while (WiFi.status() != WL_CONNECTED && millis() - start < timeout_ms) {
-    Serial.print(".");
+    Serial.print(".");                     // พิมพ์จุด . ออกหน้าจอทุกๆ 0.4 วินาที เพื่อให้เรารู้ว่าบอร์ดไม่ได้ค้าง
     delay(400);
   }
 
-  if (WiFi.status() == WL_CONNECTED) {
-    currentMode = "STA";
+  // เงิ่อนไข เช็คว่า ต่อติดแล้วใช่ไหม
+  if (WiFi.status() == WL_CONNECTED) {    // ถ้าติด ให้จำไว้ในตัวแปรว่าตอนนี้เราอยู่ในโหมด STA
+    currentMode = "STA";                  // ให้จำไว้ในตัวแปรว่าตอนนี้เราอยู่ในโหมด STA เพื่อเอาไปใช้ในฟังก์ชั่นอื่น
+
+    // พิมพ์ข้อความบอกว่าสำเร็จแล้ว และโชว์หมายเลข IP Address ที่บอร์ดได้รับมา
     Serial.println("\n✅ ต่อ Wi-Fi มือถือ (STA) สำเร็จ");
-    Serial.print("IP: ");
-    Serial.println(WiFi.localIP());
-  } else {
+    Serial.print("IP: ");             
+    Serial.println(WiFi.localIP());      
+  } 
+  else {                                  // ถ้าเป็นอื่นนอกจากนี้ ให้ทำข้างล่างนี้แทน
     Serial.println("\n❌ ต่อ STA ไม่ติด → เปิด AP Mode แทน");
-    WiFi.mode(WIFI_AP);
-    WiFi.softAP(AP_SSID, AP_PASS);
-    currentMode = "AP";
+    WiFi.mode(WIFI_AP);                   // สั่งสลับโหมด จากผู้รับ STA ให้กลายเป็น Access Point (AP) หรือ ผู้ปล่อยสัญญาณแทน
+    WiFi.softAP(AP_SSID, AP_PASS);        // สั่งให้บอร์ดปล่อย WiFi ออกมาเองโดยใช้ ตัวแปรชื่อและรหัสผ่านที่กำหนดใว้
+    currentMode = "AP";                   // จำไว้ว่าตอนนี้เราอยู่ในโหมด AP ปล่อย WiFi เองเพื่อเอาไปใช้ในฟังก์ชั่นอื่น
+
+    // พิมพ์บอกสถานะว่าตอนนี้เปิดโหมดสำรองแล้วนะ และโชว์ IP ของบอร์ดเอง
     Serial.print("📡 AP SSID: ");
     Serial.println(AP_SSID);
     Serial.print("IP AP: ");
@@ -335,5 +339,3 @@ void loop() {
     }
   }
 }
-
-
