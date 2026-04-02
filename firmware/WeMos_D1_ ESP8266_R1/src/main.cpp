@@ -44,10 +44,14 @@ String relayState() {
   return (digitalRead(RELAY_PIN) == LOW) ? "ON" : "OFF";  // LOW = ON (Active LOW)
 }
 
-// --- ฟังก์ชันหาจุดศูนย์ (Set Zero) ---
+// ======================================================================
+// [CRITICAL] ฟังก์ชัน Calibrate หาจุดศูนย์ (Auto Zero Calibration)
+// ** สำคัญมาก: ต้องรันตอนที่ "ไม่มีกระแสไหลผ่านมอเตอร์" เท่านั้น (Motor OFF) **
+// เพื่อหาค่าแรงดันอ้างอิง (Offset) ที่แท้จริง ณ ขณะนั้น ป้องกันค่าเพี้ยนจากอุณหภูมิและสัญญาณรบกวน
+// ======================================================================
 void calibrateAcsOffset() {
-  const int N = 500;          // กำหนดให้อ่านค่า 500 รอบเพื่อหาค่าเฉลี่ยที่นิ่งที่สุด
-  long sum    = 0;            // ตัวแปรสำหรับรวมค่า ADC
+  const int N = 500;                    // กำหนดให้อ่านค่า 500 รอบเพื่อหาค่าเฉลี่ยที่นิ่งที่สุด
+  long sum    = 0;                      // ตัวแปรสำหรับรวมค่า ADC
   Serial.println("[ACS] Calibrating offset, กรุณาอย่าให้มีกระแสโหลด...");
 
   for (int i = 0; i < N; i++) {
@@ -254,7 +258,7 @@ async function fetchStatus() {
     let res = await fetch('/api/status');
     let data = await res.json();
     document.getElementById('relay').innerText = data.relay;
-    document.getElementById('current').innerText = data.current.toFixed(2);
+    document.getElementById('currentA').innerText = data.current.toFixed(2);
     document.getElementById('mode').innerText  = data.mode;
     document.getElementById('ip').innerText    = data.ip;
 
