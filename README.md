@@ -40,5 +40,10 @@ Source code for a Solar-Powered Dry Leaf Compost Mixer Project 2026
 ```cpp
 const char* STA_SSID = "Your_SSID";
 const char* STA_PASS = "Your_Password";
+```
+
+---
+
+![3D Render](assets/ระบบควบคุมการทำงาน.drawio.png)
 
 
