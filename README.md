@@ -43,8 +43,13 @@ const char* STA_PASS = "Your_Password";
 ```
 
 ---
-## System Control Logic Flowchart
 
+## System Control Logic Flowchart
 ![3D Render](assets/ระบบควบคุมการทำงาน.drawio.png)
+
+---
+
+## Hardware & Electrical Design
+![3D Render](assets/circuits.png)
 
 
