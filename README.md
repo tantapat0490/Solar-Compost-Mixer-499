@@ -54,24 +54,24 @@ const char* STA_PASS = "Your_Password";
 
 ---
 
-## 🛠️ 1. Mechanical Design & CAD (SolidWorks)
+## Mechanical Design & CAD (SolidWorks)
 
-### 1.1 Project Assembly Overview (ภาพรวมการออกแบบ 3 มิติ)
-![3D CAD Model](assets/3d_render.png)
+### Project Assembly Overview (ภาพรวมการออกแบบ 3 มิติ)
+![3D CAD Model](assets/4b75f443-695d-4b41-9fd9-40a296b6eac9.png)
 > **คำอธิบาย:** แบบจำลอง 3 มิติ (SolidWorks) แสดงโครงสร้างรวมของเครื่องผสมปุ๋ยหมักใบไม้แห้ง[cite: 4] ประกอบด้วยถังหมักทรงกระบอก โครงเหล็กรับน้ำหนักพร้อมล้อเลื่อน (Caster Wheels) เพื่อความสะดวกในการเคลื่อนย้าย และชุดขับเคลื่อนมอเตอร์ด้านล่าง[cite: 4]
 
-### 1.2 2D Engineering & Assembly Drawing (แบบสั่งขายและมิติขนาด)
-![2D Engineering Drawing](assets/2d_drawing.png)
+### 2D Engineering & Assembly Drawing (แบบสั่งขายและมิติขนาด)
+![2D Engineering Drawing](assets/be40d80b-bfb7-400d-a276-7d389a05bbde.png)
 > **คำอธิบาย:** แบบเขียนทางวิศวกรรม 2 มิติ (Assembly Drawing) กำหนดขนาดและมิติทางกายภาพ (Dimensions) อย่างแม่นยำ เช่น ความสูงรวม 1,302 mm ความกว้างฐาน 600 mm และเส้นผ่านศูนย์กลางแกนหมุน เพื่อใช้ในการตัดประกอบและเชื่อมขึ้นรูปชิ้นงานจริง (Fabrication)[cite: 5]
 
-### 1.3 Mixing Blade & Shaft Design (การออกแบบแกนกวนและใบผสม)
-![Agitator Design](assets/agitator.jpg)
+### Mixing Blade & Shaft Design (การออกแบบแกนกวนและใบผสม)
+![Agitator Design](assets/IMG_8152.jpg)
 > **คำอธิบาย:** ชุดแกนหมุนกวนภายในถังหมัก (Agitator Shaft) ออกแบบให้มีใบบิดเอียงทำมุมสลับทิศทาง เพื่อเพิ่มแรงตัดและตักกลับใบไม้แห้ง ทำให้ปุ๋ยหมักผสมเข้ากันได้อย่างทั่วถึงและลดภาระภาระโหลดของมอเตอร์[cite: 10]
 
-### 1.4 Drive System Layout & Adjustment Rails (ระบบขับเคลื่อนและแท่นปรับสไลด์)
+### Drive System Layout & Adjustment Rails (ระบบขับเคลื่อนและแท่นปรับสไลด์)
 | มุมมองด้านบน (Top View) | มุมมองไอโซเมตริก (Isometric View) |
 | :---: | :---: |
-| ![Top View](assets/drive_top.jpg) | ![Isometric View](assets/drive_iso1.jpg) |
+| ![Top View](assets/Project_KU_photo_2025-Sep-24_093.jpg) | ![Isometric View](assets/Project_KU_photo_2025-Sep-24_092.jpg) |
 
 > **คำอธิบาย:** การจัดวางชุดเกียร์ทดรอบ (Worm Gear Reducer) และมอเตอร์บนแท่นยึดแบบเจาะรูสไลด์ (Slotted Base Plate)[cite: 7, 11] ช่วยให้สามารถปรับระยะตำแหน่งมอเตอร์ เพื่อตั้งความตึงของสายพาน/โซ่ส่งกำลังได้อย่างสะดวก[cite: 7, 8, 11]
 
