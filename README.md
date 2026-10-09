@@ -46,7 +46,7 @@
 * **Logic & Application:** ควบคุมรอบการทำงาน (Scheduling), บันทึก Log ลงฐานข้อมูล และประมวลผลอัลกอริทึมการหมักผ่านการสื่อสารทาง API
 
 ### 1.3 System Control Logic Flowchart
-![Control Logic Flowchart](assets/control_flowchart.png)
+![Control Logic Flowchart](assets/ระบบควบคุมการทำงาน.drawio.png)
 > **คำอธิบาย:** แผนผังลอจิกการทำงานของเฟิร์มแวร์ โดยระบบจะตรวจสอบช่วงเวลา (07:00 - 18:00 น.) และควบคุมการเปิดมอเตอร์กวนเป็นรอบ รอบละ 5 นาที เพื่อประหยัดพลังงานแบตเตอรี่ พร้อมระบบ Safety เช็กกระแสโหลด
 
 ---
@@ -54,7 +54,7 @@
 ## 2. Hardware & Electrical Design
 
 ### 2.1 Circuit Schematic & Wiring Diagram
-![Hardware Circuit Schematic](assets/circuit_schematic.png)
+![Hardware Circuit Schematic](assets/circuits.png)
 > **คำอธิบาย:** แผนผังวงจรไฟฟ้าและการต่อพ่วงฮาร์ดแวร์ แสดงการจ่ายพลังงานจากชุดโซลาร์เซลล์และแบตเตอรี่ 12V ผ่าน Solar Charge Controller ไปยังบอร์ด WeMos D1 R1, เซนเซอร์ ACS712, DHT11 และวงจรขับมอเตอร์ DC ผ่าน Relay
 
 ---
@@ -62,21 +62,21 @@
 ## 3. Mechanical Design & CAD (SolidWorks)
 
 ### 3.1 Project Assembly Overview (ภาพรวมการออกแบบ 3 มิติ)
-![3D CAD Model](assets/3d_assembly.png)
+![3D CAD Model](assets/4b75f443-695d-4b41-9fd9-40a296b6eac9.png)
 > **คำอธิบาย:** แบบจำลอง 3 มิติ (SolidWorks) แสดงโครงสร้างรวมของเครื่องผสมปุ๋ยหมักใบไม้แห้ง ประกอบด้วยถังหมักทรงกระบอก โครงเหล็กรับน้ำหนักพร้อมล้อเลื่อน (Caster Wheels) และชุดขับเคลื่อนมอเตอร์ด้านล่าง
 
 ### 3.2 2D Engineering & Assembly Drawing (แบบสั่งขายและมิติขนาด)
-![2D Engineering Drawing](assets/2d_drawing.png)
+![2D Engineering Drawing](assets/be40d80b-bfb7-400d-a276-7d389a05bbde.png)
 > **คำอธิบาย:** แบบเขียนทางวิศวกรรม 2 มิติ (Assembly Drawing) กำหนดขนาดมิติทางกายภาพ (Dimensions) อย่างแม่นยำสำหรับการตัดประกอบและเชื่อมขึ้นรูปชิ้นงานจริง (Fabrication) เช่น ความสูงรวม 1,302 mm และความกว้างฐาน 600 mm
 
 ### 3.3 Mixing Blade & Shaft Design (การออกแบบแกนกวนและใบผสม)
-![Agitator Design](assets/agitator.jpg)
+![Agitator Design](assets/IMG_8152.jpg)
 > **คำอธิบาย:** ชุดแกนหมุนกวนภายในถังหมัก (Agitator Shaft) ออกแบบให้ใบบิดเอียงทำมุมสลับทิศทาง เพื่อเพิ่มแรงตัดและตักกลับใบไม้แห้ง ทำให้ผสมเข้ากันทั่วถึงและลดภาระโหลดของมอเตอร์
 
 ### 3.4 Drive System Layout & Adjustment Rails (ระบบขับเคลื่อนและแท่นปรับสไลด์)
 | มุมมองด้านบน (Top View) | มุมมองไอโซเมตริก (Isometric View) |
 | :---: | :---: |
-| ![Top View](assets/drive_top.jpg) | ![Isometric View](assets/drive_iso.jpg) |
+| ![Top View](assets/Project_KU24.jpg) | ![Isometric View](assets/Project_KU096.jpg) |
 
 > **คำอธิบาย:** การจัดวางชุดเกียร์ทดรอบ (Worm Gear Reducer) และมอเตอร์บนแท่นยึดแบบเจาะรูสไลด์ (Slotted Base Plate) ช่วยให้สามารถปรับระยะตำแหน่งมอเตอร์ เพื่อตั้งความตึงของสายพาน/โซ่ส่งกำลังได้อย่างสะดวก
 
