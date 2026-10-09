@@ -67,7 +67,7 @@
 
 ### 3.2 2D Engineering & Assembly Drawing (แบบสั่งขายและมิติขนาด)
 ![2D Engineering Drawing](assets/be40d80b-bfb7-400d-a276-7d389a05bbde.png)
-> **คำอธิบาย:** แบบเขียนทางวิศวกรรม 2 มิติ (Assembly Drawing) กำหนดขนาดมิติทางกายภาพ (Dimensions) อย่างแม่นยำสำหรับการตัดประกอบและเชื่อมขึ้นรูปชิ้นงานจริง (Fabrication) เช่น ความสูงรวม 1,302 mm และความกว้างฐาน 600 mm
+> **คำอธิบาย:** แบบเขียนทางวิศวกรรม 2 มิติ (Assembly Drawing) กำหนดขนาดมิติทางกายภาพ (Dimensions) สำหรับการตัดประกอบและเชื่อมขึ้นรูปชิ้นงานจริง (Fabrication)
 
 ### 3.3 Mixing Blade & Shaft Design (การออกแบบแกนกวนและใบผสม)
 ![Agitator Design](assets/IMG_8152.JPG)
