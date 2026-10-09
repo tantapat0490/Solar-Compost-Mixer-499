@@ -71,7 +71,7 @@ const char* STA_PASS = "Your_Password";
 ### Drive System Layout & Adjustment Rails (ระบบขับเคลื่อนและแท่นปรับสไลด์)
 | มุมมองด้านบน (Top View) | มุมมองไอโซเมตริก (Isometric View) |
 | :---: | :---: |
-| ![Top View](assets/Project_KU_photo_2025-Sep-24_093.jpg) | ![Isometric View](assets/Project_KU_photo_2025-Sep-24_092.jpg) |
+| ![Top View](assets/Project_KU24.jpg) | ![Isometric View](assets/Project_KU096.jpg) |
 
 > **คำอธิบาย:** การจัดวางชุดเกียร์ทดรอบ (Worm Gear Reducer) และมอเตอร์บนแท่นยึดแบบเจาะรูสไลด์ (Slotted Base Plate)[cite: 7, 11] ช่วยให้สามารถปรับระยะตำแหน่งมอเตอร์ เพื่อตั้งความตึงของสายพาน/โซ่ส่งกำลังได้อย่างสะดวก[cite: 7, 8, 11]
 
