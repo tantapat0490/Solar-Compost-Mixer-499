@@ -11,7 +11,7 @@
 
 ---
 
-## Key Engineering Highlights (จุดเด่นทางวิศวกรรม)
+## Key Highlights 
 * **Full-Scale Mechanical CAD:** ออกแบบโครงสร้างกลไก 3D & 2D Assembly Drawing เต็มระบบด้วย SolidWorks
 * **Solar Power & Hardware Integration:** บูรณาการระบบไฟฟ้าย่อยพลังงานแสงอาทิตย์ 12V DC ร่วมกับเซนเซอร์วัดกระแสและระบบป้องกัน Overcurrent
 * **Decoupled Architecture:** แยกส่วนฮาร์ดแวร์ (ESP8266 REST API) และซอฟต์แวร์ประมวลผล (Python Backend) เพื่อความเสถียร ปลอดภัย และขยายระบบได้ง่าย
